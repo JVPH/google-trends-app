@@ -1,95 +1,67 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import { useState } from "react";
+import styles from "./page.module.css";
 
 export default function Home() {
+  const [requestParams, setRequestParams] = useState({
+    startDate: "",
+    endDate: "",
+    dmaRegion: "",
+    score: "",
+    rank: "",
+  });
+
+  const dmaRegions: string[] = [];
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // Prevent default browser page refresh.
+    e.preventDefault();
+
+    // Get form data as an object.
+    const data = new FormData(e.currentTarget);
+    const obj = {
+      startDate: data.get("startDate")?.toString() ?? "",
+      endDate: data.get("endDate")?.toString() ?? "",
+      dmaRegion: data.get("dmaRegion")?.toString() ?? "",
+      score: data.get("score")?.toString() ?? "",
+      rank: data.get("rank")?.toString() ?? "",
+    };
+
+    // Submit to your backend API...
+    setRequestParams(obj);
+  };
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <form>
+        <label htmlFor="startDate">
+          Start Date
+          <input id="startDate" name="startDate" type="date" />
+        </label>
+        <label htmlFor="endDate">
+          End Date
+          <input id="endDate" name="endDate" type="date" />
+        </label>
+        <label htmlFor="dmaRegion">
+          DMA Regions
+          <select disabled={!dmaRegions.length} id="dmaRegion" name="dmaRegion">
+            <option />
+            {dmaRegions.map((region) => (
+              <option key={region} value={region}>
+                {region}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="score">
+          score
+          <input id="score" name="score" type="number" min={0} max={100} />
+        </label>
+        <label htmlFor="rank">
+          rank
+          <input id="rank" name="rank" type="number" min={1} max={25} />
+        </label>
+      </form>
     </main>
-  )
+  );
 }
