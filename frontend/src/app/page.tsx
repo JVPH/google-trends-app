@@ -28,23 +28,36 @@ export default function Home() {
     };
 
     // Submit to your backend API...
+    console.log(obj);
     setRequestParams(obj);
   };
 
   return (
     <main className={styles.main}>
-      <form>
+      <form onSubmit={onSubmit}>
         <label htmlFor="startDate">
           Start Date
-          <input id="startDate" name="startDate" type="date" />
+          <input
+            id="startDate"
+            name="startDate"
+            type="date"
+            // min="2019-01-01"
+            // max="2022-11-10"
+            required
+          />
         </label>
         <label htmlFor="endDate">
           End Date
-          <input id="endDate" name="endDate" type="date" />
+          <input id="endDate" name="endDate" type="date" required />
         </label>
         <label htmlFor="dmaRegion">
           DMA Regions
-          <select disabled={!dmaRegions.length} id="dmaRegion" name="dmaRegion">
+          <select
+            disabled={!dmaRegions.length}
+            id="dmaRegion"
+            name="dmaRegion"
+            required
+          >
             <option />
             {dmaRegions.map((region) => (
               <option key={region} value={region}>
@@ -61,6 +74,7 @@ export default function Home() {
           rank
           <input id="rank" name="rank" type="number" min={1} max={25} />
         </label>
+        <button type="submit">run query</button>
       </form>
     </main>
   );
