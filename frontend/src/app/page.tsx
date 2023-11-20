@@ -4,14 +4,14 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const [requestParams, setRequestParams] = useState({
-    startDate: "",
-    endDate: "",
-    dmaRegion: "",
-    score: "",
-    rank: "",
+    week_start: "",
+    week_end: "",
+    dma_name: "",
+    refresh_start: "",
+    refresh_end: "",
   });
 
-  const dmaRegions: string[] = [];
+  const dma_names: string[] = [];
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent default browser page refresh.
@@ -20,59 +20,59 @@ export default function Home() {
     // Get form data as an object.
     const data = new FormData(e.currentTarget);
     const obj = {
-      startDate: data.get("startDate")?.toString() ?? "",
-      endDate: data.get("endDate")?.toString() ?? "",
-      dmaRegion: data.get("dmaRegion")?.toString() ?? "",
-      score: data.get("score")?.toString() ?? "",
-      rank: data.get("rank")?.toString() ?? "",
+      week_start: data.get("week_start")?.toString() ?? "",
+      week_end: data.get("week_end")?.toString() ?? "",
+      dma_name: data.get("dma_name")?.toString() ?? "",
+      refresh_start: data.get("refresh_start")?.toString() ?? "",
+      refresh_end: data.get("refresh_end")?.toString() ?? "",
     };
 
     // Submit to your backend API...
-    console.log(obj);
+    // console.log(obj);
     setRequestParams(obj);
   };
 
   return (
     <main className={styles.main}>
       <form onSubmit={onSubmit}>
-        <label htmlFor="startDate">
+        <label htmlFor="week_start">
           Start Date
           <input
-            id="startDate"
-            name="startDate"
+            id="week_start"
+            name="week_start"
             type="date"
             // min="2019-01-01"
             // max="2022-11-10"
             required
           />
         </label>
-        <label htmlFor="endDate">
+        <label htmlFor="week_end">
           End Date
-          <input id="endDate" name="endDate" type="date" required />
+          <input id="week_end" name="week_end" type="date" required />
         </label>
-        <label htmlFor="dmaRegion">
+        <label htmlFor="dma_name">
           DMA Regions
           <select
-            disabled={!dmaRegions.length}
-            id="dmaRegion"
-            name="dmaRegion"
+            disabled={!dma_names.length}
+            id="dma_name"
+            name="dma_name"
             required
           >
             <option />
-            {dmaRegions.map((region) => (
+            {dma_names.map((region) => (
               <option key={region} value={region}>
                 {region}
               </option>
             ))}
           </select>
         </label>
-        <label htmlFor="score">
-          score
-          <input id="score" name="score" type="number" min={0} max={100} />
+        <label htmlFor="refresh_start">
+          refresh_start
+          <input id="refresh_start" name="refresh_start" type="date" required />
         </label>
-        <label htmlFor="rank">
-          rank
-          <input id="rank" name="rank" type="number" min={1} max={25} />
+        <label htmlFor="refresh_end">
+          refresh_end
+          <input id="refresh_end" name="refresh_end" type="date" required />
         </label>
         <button type="submit">run query</button>
       </form>
