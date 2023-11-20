@@ -4,9 +4,9 @@ from passlib.hash import pbkdf2_sha256
 # access token acts as a proxy for having logged in
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt, create_refresh_token, get_jwt_identity
 
-from db import db
-from models import UserModel
-from schemas import UserSchema
+
+from ..models.user import UserModel
+from ..schemas import UserSchema
 
 from sqlalchemy.exc import IntegrityError
 
@@ -21,8 +21,7 @@ class UserRegister(MethodView):
       password = pbkdf2_sha256.hash(user_data["password"])      
     )
     try:
-      db.session.add(user)
-      db.session.commit()
+      user.save_to_db()
 
       return {"message":"User created successfully."}, 201
     except IntegrityError:
@@ -63,10 +62,5 @@ class User(MethodView):
   @blp.response(200, UserSchema)
   def get(self, user_id):
     user = UserModel.query.get_or_404(user_id)
-    return user.json()
+    return user.json() 
   
-  def delete(self, user_id):
-    user = UserModel.query.get_or_404(user_id)
-    db.session.delete(user)
-    db.session.commit()
-    return {"message":"User deleted."}, 200

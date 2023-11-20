@@ -1,5 +1,5 @@
-from db import db
-from utils import query_google_trends
+from ..db import db
+from ..utils.google_trends import query_google_trends
 
 class QueryModel(db.Model):
   __tablename__ = "queries"

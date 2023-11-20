@@ -1,8 +1,8 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from schemas import CommentSchema, CommentUpdateSchema
-from models import CommentModel
+from ..schemas import CommentSchema, CommentUpdateSchema
+from ..models.comment import CommentModel
 from sqlalchemy.exc import SQLAlchemyError
 
 blp = Blueprint("comments", __name__, description="Operation on comments")

@@ -2,10 +2,10 @@ from flask import request
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from schemas import QuerySchema, GoogleTrendsSchema
-from models import QueryModel
+from ..schemas import QuerySchema, GoogleTrendsSchema
+from ..models.query import QueryModel
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
-from utils import query_dna_names, query_google_trends
+from ..utils.google_trends import query_dna_names, query_google_trends
 
 blp = Blueprint("queries", __name__, description="Operation on queries")
 
