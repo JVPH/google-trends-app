@@ -1,0 +1,2 @@
+from utils.google_trends import query_dna_names
+from utils.google_trends import query_google_trends
