@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import styles from "./page.module.css";
+import useDMAList from "./useDMAlist";
 
 export default function Home() {
   const [requestParams, setRequestParams] = useState({
@@ -11,7 +12,7 @@ export default function Home() {
     refresh_end: "",
   });
 
-  const dma_names: string[] = [];
+  const [dma_names] = useDMAList();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent default browser page refresh.
@@ -28,7 +29,7 @@ export default function Home() {
     };
 
     // Submit to your backend API...
-    // console.log(obj);
+    console.log(obj);
     setRequestParams(obj);
   };
 

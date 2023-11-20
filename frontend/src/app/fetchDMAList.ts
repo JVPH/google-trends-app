@@ -1,12 +1,16 @@
-import type { QueryFunctionContext } from "@tanstack/react-query";
+import { QueryFunction } from "@tanstack/react-query";
+import type { DMAListAPIResponse } from "./APIResponseTypes";
 
-const fetchDMAList = async ({
+const fetchDMAList: QueryFunction<DMAListAPIResponse, ["dmaList"]> = async ({
   queryKey,
-}: QueryFunctionContext<[string, string | null | undefined]>) => {
-  // insert flask api here
-  const apiRes = await fetch(``);
+}) => {
+  const res = await fetch(`http://localhost:5000/api/queries/dna_names`);
 
-  return apiRes.json();
+  if (!res.ok) {
+    throw new Error(`DMAList fetch did not work.`);
+  }
+
+  return res.json();
 };
 
 export default fetchDMAList;
