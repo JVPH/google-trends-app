@@ -1,6 +1,7 @@
 from google.cloud import bigquery
 client = bigquery.Client()
 
+# retrieves average scores and ranks for top terms based on specified date ranges and DMA name
 def query_google_trends(week_start, week_end, refresh_start, refresh_end, dma_name):
   query = """
       SELECT
@@ -38,6 +39,7 @@ def query_google_trends(week_start, week_end, refresh_start, refresh_end, dma_na
   except Exception as e:
     return {"error":f"{e}"}
 
+# retrieves distinct DMA names available in the dataset
 def query_dna_names():  
   try:
     query_job = client.query(      
