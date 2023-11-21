@@ -9,3 +9,4 @@ flask-migrate
 gunicorn
 psycopg
 google-cloud-bigquery
+flask-cors

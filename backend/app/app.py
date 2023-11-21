@@ -7,12 +7,15 @@ from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 from app.db import db
 
+from flask_cors import CORS
+
 from app.resources.queries import blp as QueryBlueprint
 from app.resources.comments import blp as CommentBlueprint
 from app.resources.users import blp as UserBlueprint
 
 def create_app(db_url=None):
     app = Flask(__name__)
+    CORS(app, origins=["http://127.0.0.1:9000", "http://localhost:9000"])
     load_dotenv()
     app.config["PROPAGATE_EXCEPTIONS"] = True
     app.config["API_TITLE"] = "Google Trends Queries REST API"
