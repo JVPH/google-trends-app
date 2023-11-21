@@ -2,8 +2,11 @@
 import { useState } from "react";
 import styles from "./page.module.css";
 import useDMAList from "./useDMAlist";
+import { useQuery } from "@tanstack/react-query";
+import fetchGoogleTrendsQuery from "./fetchGoogleTrendsQuery";
 
 export default function Home() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [requestParams, setRequestParams] = useState({
     week_start: "",
     week_end: "",
@@ -13,6 +16,15 @@ export default function Home() {
   });
 
   const [dma_names] = useDMAList();
+  const results = useQuery({
+    queryKey: ["googleTrendsQuery", requestParams],
+    queryFn: fetchGoogleTrendsQuery,
+    enabled: formSubmitted,
+  });
+
+  const googleTrendsData = results?.data ?? [];
+
+  console.log(googleTrendsData);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // Prevent default browser page refresh.
@@ -31,6 +43,7 @@ export default function Home() {
     // Submit to your backend API...
     console.log(obj);
     setRequestParams(obj);
+    setFormSubmitted(true);
   };
 
   return (
