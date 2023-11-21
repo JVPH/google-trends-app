@@ -7,3 +7,8 @@ export interface GoogleTrendsAPIResponse {
   avgScoreValue: number | null;
   termName: string;
 }
+
+export interface LoginAPIResponse {
+  username: string;
+  access_token: string;
+}
