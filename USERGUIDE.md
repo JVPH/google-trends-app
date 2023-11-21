@@ -1,5 +1,6 @@
 # Welcome Guide
 
+English Video about docker compose: https://youtu.be/BuEJu3t7J-k
 Hi, this is a short starter guide to get this project up and running:
 
 # Frontend
